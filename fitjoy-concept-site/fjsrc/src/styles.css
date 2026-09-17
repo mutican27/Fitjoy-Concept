@@ -1,0 +1,159 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Fitjoy Concept — dark, high-energy design system.
+ * Neon lime #CCFF00 as the single accent, near-black green-tinted surfaces.
+ */
+
+@theme inline {
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --shadow-glow: 0 0 44px -10px oklch(0.956 0.258 127 / 55%);
+  --shadow-card: 0 24px 60px -24px oklch(0 0 0 / 70%);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.145 0.012 130);
+  --foreground: oklch(0.97 0.005 120);
+  --card: oklch(0.19 0.014 130);
+  --card-foreground: oklch(0.97 0.005 120);
+  --popover: oklch(0.19 0.014 130);
+  --popover-foreground: oklch(0.97 0.005 120);
+  --primary: oklch(0.956 0.258 127); /* #CCFF00 */
+  --primary-foreground: oklch(0.16 0.03 127);
+  --secondary: oklch(0.24 0.016 130);
+  --secondary-foreground: oklch(0.97 0.005 120);
+  --muted: oklch(0.22 0.014 130);
+  --muted-foreground: oklch(0.68 0.015 130);
+  --accent: oklch(0.27 0.02 130);
+  --accent-foreground: oklch(0.97 0.005 120);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.005 120);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.956 0.258 127);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Marquee band */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Neon pulse ring for the floating WhatsApp button */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 oklch(0.956 0.258 127 / 45%);
+  }
+  70% {
+    box-shadow: 0 0 0 18px oklch(0.956 0.258 127 / 0%);
+  }
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.956 0.258 127 / 0%);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Slow float for hero scroll hint */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.animate-float-y {
+  animation: float-y 2.4s ease-in-out infinite;
+}
