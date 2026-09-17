@@ -36,6 +36,14 @@ function NotFoundComponent() {
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
+  if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('img').forEach((img) => {
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
+    });
+  });
+}
   const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
